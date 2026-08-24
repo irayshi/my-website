@@ -1,7 +1,7 @@
 @extends('layouts.admin')
 
 @section('main')
-    <main class="relative z-10 mx-auto max-w-[1200px] px-5 py-8 sm:px-8">
+    <main class="relative z-10 mx-auto max-w-300 px-5 py-8 sm:px-8">
         <header class="mb-8 flex flex-col gap-5 sm:flex-row sm:items-center sm:justify-between">
             <div>
                 <h1 class="font-display text-2xl font-extrabold">Dashboard Admin</h1>

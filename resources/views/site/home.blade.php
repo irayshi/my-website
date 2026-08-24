@@ -2,13 +2,12 @@
 
 @section('main')
     <main>
-
         <section id="hero" class="relative flex min-h-screen items-center px-5 pb-16 pt-28 sm:px-8">
             <div
-                class="absolute right-0 top-0 h-[55vw] max-h-[700px] w-[55vw] max-w-[700px] rounded-full bg-crimson/30 blur-[130px]">
+                class="absolute right-0 top-0 h-[55vw] max-h-175 w-[55vw] max-w-175 rounded-full bg-crimson/30 blur-[130px]">
             </div>
 
-            <div class="relative z-10 mx-auto grid w-full max-w-[1400px] items-center gap-12 lg:grid-cols-12">
+            <div class="relative z-10 mx-auto grid w-full max-w-350 items-center gap-12 lg:grid-cols-12">
                 <div class="lg:col-span-7">
                     <div class="mb-8 flex items-center gap-3 reveal">
                         <span class="relative flex h-2.5 w-2.5">
@@ -63,7 +62,7 @@
                 <div class="lg:col-span-5">
                     <div class="relative reveal">
                         <div class="surface-card overflow-hidden rounded-2xl p-2">
-                            <img class="h-[420px] w-full rounded-xl object-cover"
+                            <img class="h-105 w-full rounded-xl object-cover"
                                 src="https://images.unsplash.com/photo-1656231267330-f605c1c16a57?crop=entropy&cs=srgb&fm=jpg&q=85&w=900"
                                 alt="Karya terbaru Irayshi" />
                         </div>
@@ -100,7 +99,7 @@
             <div class="grid items-center gap-12 lg:grid-cols-12 lg:gap-16">
                 <div class="lg:col-span-5 reveal">
                     <div class="surface-card relative overflow-hidden rounded-2xl p-2">
-                        <img class="h-[440px] w-full rounded-xl object-cover sm:h-[520px]"
+                        <img class="h-110 w-full rounded-xl object-cover sm:h-130"
                             src="https://images.unsplash.com/photo-1754473720977-f39053f22586?crop=entropy&cs=srgb&fm=jpg&q=85&w=900"
                             alt="Irayshi" />
                         <div
@@ -153,7 +152,7 @@
         </section>
 
         <section id="products" class="border-y border-white/10 bg-[#141418] px-5 py-28 sm:px-8">
-            <div class="mx-auto max-w-[1400px]">
+            <div class="mx-auto max-w-350">
                 <h2 class="section-title reveal">Aset siap pakai untuk mempercepat kamu</h2>
                 <div id="product-filters" class="mt-8 flex flex-wrap gap-2.5 reveal"></div>
                 <div id="products-grid" class="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3"></div>
@@ -162,18 +161,17 @@
 
         <section class="relative overflow-hidden border-y border-white/10 bg-[#141418] px-5 py-24 sm:px-8">
             <div
-                class="absolute left-1/2 top-1/2 h-[500px] w-[500px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-crimson/20 blur-[150px]">
+                class="absolute left-1/2 top-1/2 h-125 w-125 -translate-x-1/2 -translate-y-1/2 rounded-full bg-crimson/20 blur-[150px]">
             </div>
-            <div id="impact-stats" class="relative z-10 mx-auto grid max-w-[1400px] grid-cols-2 gap-10 lg:grid-cols-4">
+            <div id="impact-stats" class="relative z-10 mx-auto grid max-w-350 grid-cols-2 gap-10 lg:grid-cols-4">
             </div>
         </section>
 
         <section id="portfolio" class="section-wrap">
             <h2 class="section-title reveal">Karya yang saya banggakan</h2>
             <div id="portfolio-filters" class="mt-8 flex flex-wrap gap-2.5 reveal"></div>
-            <div id="portfolio-grid" class="mt-12 grid auto-rows-[260px] gap-5 sm:grid-cols-2 lg:grid-cols-6">
+            <div id="portfolio-grid" class="mt-12 grid auto-rows-65 gap-5 sm:grid-cols-2 lg:grid-cols-6">
             </div>
         </section>
     </main>
-    <script src="{{ asset('js/script.js') }}"></script>
 @endsection

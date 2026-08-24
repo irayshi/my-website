@@ -13,23 +13,7 @@
     <link
         href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Playfair+Display:ital@1&display=swap"
         rel="stylesheet" />
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    fontFamily: {
-                        display: ["Inter", "sans-serif"],
-                        editorial: ["Playfair Display", "serif"],
-                    },
-                    colors: {
-                        crimson: "var(--crimson)",
-                    },
-                },
-            },
-        };
-    </script>
-    <link rel="stylesheet" href="{{ asset('css/styles.css') }}" />
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 
 <body class="bg-[#0d0d0f] text-white antialiased">
@@ -37,7 +21,7 @@
         <div class="grain"></div>
 
         <header id="site-header" class="fixed inset-x-0 top-0 z-50 px-5 py-4 transition-all duration-300 sm:px-8">
-            <div class="mx-auto flex max-w-[1400px] items-center justify-between">
+            <div class="mx-auto flex max-w-350 items-center justify-between">
                 <a href="#hero" class="font-display flex items-center gap-1 text-xl font-extrabold tracking-tight">
                     irayshi<span class="text-crimson">.</span>com
                 </a>
@@ -66,7 +50,7 @@
             </div>
 
             <nav id="mobile-menu"
-                class="mx-auto mt-4 hidden max-w-[1400px] rounded-2xl border border-white/10 bg-[#141418]/95 p-4 backdrop-blur lg:hidden">
+                class="mx-auto mt-4 hidden max-w-350 rounded-2xl border border-white/10 bg-[#141418]/95 p-4 backdrop-blur lg:hidden">
                 <a class="mobile-link" href="{{ route('home') }}">Home</a>
                 <a class="mobile-link" href="#services">Services</a>
                 <a class="mobile-link" href="#products">Products</a>
@@ -78,10 +62,10 @@
 
         @yield('main')
 
-        <footer id="contact" class="relative z-10 mx-auto max-w-[1400px] px-5 pb-10 pt-28 sm:px-8">
+        <footer id="contact" class="relative z-10 mx-auto max-w-350 px-5 pb-10 pt-28 sm:px-8">
             <div class="surface-card relative overflow-hidden rounded-3xl p-10 text-center sm:p-16 reveal">
                 <div
-                    class="absolute -top-20 left-1/2 h-[400px] w-[400px] -translate-x-1/2 rounded-full bg-crimson/25 blur-[130px]">
+                    class="absolute -top-20 left-1/2 h-100 w-100 -translate-x-1/2 rounded-full bg-crimson/25 blur-[130px]">
                 </div>
                 <div class="relative z-10">
                     <h2

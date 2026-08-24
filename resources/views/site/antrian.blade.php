@@ -1,7 +1,7 @@
 @extends('layouts.site')
 
 @section('main')
-    <main class="relative z-10 mx-auto max-w-[1400px] px-5 pb-16 pt-28 sm:px-8">
+    <main class="relative z-10 mx-auto max-w-350 px-5 pb-16 pt-28 sm:px-8">
         <a class="mb-8 inline-flex items-center gap-2 text-sm text-zinc-400 transition hover:text-white" href="index.html">
             <i data-lucide="arrow-left" class="h-4 w-4"></i>
             Kembali ke Beranda
@@ -57,5 +57,4 @@
             </section>
         </section>
     </main>
-    <script src="{{ asset('js/queue.js') }}"></script>
 @endsection
