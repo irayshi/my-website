@@ -1,0 +1,59 @@
+projects
+- id
+- name
+- description
+- tech_stack
+- link_demo
+- created_at
+- employee_id
+- review_id
+- internal
+- status
+- show
+- created_at
+- finished_at
+
+queues
+- id
+- project_id
+- client_id
+- created_at
+- canceled_at
+
+reviews
+- id
+- client_id
+- project_id
+- rating
+- message
+- created_at
+- updated_at
+
+services
+- id
+- name
+- description
+- price
+- finish_days
+
+images
+- id
+- imageable_id
+- imageable_type
+- image_path
+- sort_order
+
+employee
+- id
+- name
+- slug
+- password
+- created_at
+
+users
+- id
+- name
+- created_at
+- deleted_at
+- avatar
+
