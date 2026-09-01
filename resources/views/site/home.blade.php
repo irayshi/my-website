@@ -2,7 +2,7 @@
 
 @section('main')
     <main>
-        <section id="hero" class="relative flex min-h-screen items-center px-5 pb-16 pt-28 sm:px-8">
+        <section id="hero" class="relative flex h-screen items-center px-5 pb-16 pt-28 sm:px-8">
             <div
                 class="absolute right-0 top-0 h-[55vw] max-h-175 w-[55vw] max-w-175 rounded-full bg-crimson/30 blur-[130px]">
             </div>
@@ -15,21 +15,17 @@
                                 class="absolute inline-flex h-full w-full animate-ping rounded-full bg-green-400 opacity-75"></span>
                             <span class="relative inline-flex h-2.5 w-2.5 rounded-full bg-green-400"></span>
                         </span>
-                        <span class="overline text-white/70">Tersedia untuk Proyek Baru</span>
+                        <span class="tagline text-white/70">Tersedia untuk Proyek Baru</span>
                     </div>
 
                     <h1
                         class="font-display text-4xl font-extrabold leading-[1.02] tracking-tight sm:text-6xl lg:text-[4.4rem] xl:text-[5rem]">
-                        <span class="block">Membangun</span>
-                        <span class="block text-crimson">Produk Digital</span>
-                        <span class="block">Yang Berjiwa.</span>
+                        Analisis, Desain, Kembangkan
                     </h1>
 
                     <p class="mt-8 max-w-xl text-base leading-relaxed text-zinc-400 sm:text-lg">
-                        Halo, saya <span class="font-medium text-white">Irayshi</span> - fullstack engineer &
-                        desainer produk.
-                        Saya membangun aplikasi web, menjual produk digital, dan memamerkan karya terbaik saya di
-                        sini.
+                        Bangun program tidak hanya berfungsi, tetapi juga bermanfaat. Selesaikan masalah, bukan sekedar
+                        menyelesaikan tugas.
                     </p>
 
                     <div class="mt-10 flex flex-wrap items-center gap-4">
@@ -68,7 +64,7 @@
                         </div>
                         <div
                             class="surface-card absolute -bottom-6 -left-4 rounded-xl bg-[#141418]/90 px-5 py-4 backdrop-blur-xl">
-                            <div class="overline">Karya Terbaru</div>
+                            <div class="tagline">Karya Terbaru</div>
                             <div class="font-display mt-1 font-bold">Pulse Analytics</div>
                             <div class="text-xs text-zinc-600">React · FastAPI · MongoDB</div>
                         </div>
@@ -84,24 +80,68 @@
         </section>
 
         <section class="overflow-hidden border-y border-white/10 bg-[#141418] py-6">
-            <div id="marquee-track" class="marquee-track"></div>
+            <div class="marquee-track">
+                @php
+                    $items = ['Mobile Development', 'Web Development', 'UI/UX Design'];
+                @endphp
+
+                @for ($i = 0; $i < 3; $i++)
+                    @foreach ($items as $item)
+                        <span class="marquee-item">
+                            <span class="font-display px-6 text-2xl font-bold text-white/90 sm:text-4xl">
+                                {{ $item }}</span>
+                            <span class="text-2xl text-crimson sm:text-4xl">*</span>
+                        </span>
+                    @endforeach
+                @endfor
+            </div>
         </section>
 
         <section id="manifesto" class="section-wrap">
-            <h2 class="section-title reveal">Cara <span class="font-editorial font-normal italic text-crimson">kerja</span>
-                saya.</h2>
+            <h2 class="section-title reveal">
+                Cara <span class="font-editorial font-normal italic text-crimson">kerja</span> saya.
+            </h2>
+
             <div id="workflow-grid"
                 class="mt-16 grid overflow-hidden rounded-2xl border border-white/10 bg-white/10 md:grid-cols-3">
+
+                <article class="group reveal bg-[#0d0d0f] p-9 transition-colors duration-300 hover:bg-[#141418]">
+                    <div
+                        class="font-display text-5xl font-extrabold text-white/10 transition-colors duration-300 group-hover:text-crimson">
+                        01</div>
+                    <h3 class="font-display mt-6 text-xl font-bold">Diskusi & Perencanaan</h3>
+                    <p class="mt-4 text-sm leading-relaxed text-zinc-400">Memahami kebutuhan bisnis Anda, menentukan
+                        arsitektur aplikasi, dan menyusun peta jalan proyek yang jelas.</p>
+                </article>
+
+                <article class="group reveal bg-[#0d0d0f] p-9 transition-colors duration-300 hover:bg-[#141418]">
+                    <div
+                        class="font-display text-5xl font-extrabold text-white/10 transition-colors duration-300 group-hover:text-crimson">
+                        02</div>
+                    <h3 class="font-display mt-6 text-xl font-bold">Desain & Pengembangan</h3>
+                    <p class="mt-4 text-sm leading-relaxed text-zinc-400">Mentransformasikan ide ke dalam kode pemrograman
+                        yang bersih, responsif, berkinerja tinggi, dan berjiwa.</p>
+                </article>
+
+                <article class="group reveal bg-[#0d0d0f] p-9 transition-colors duration-300 hover:bg-[#141418]">
+                    <div
+                        class="font-display text-5xl font-extrabold text-white/10 transition-colors duration-300 group-hover:text-crimson">
+                        03</div>
+                    <h3 class="font-display mt-6 text-xl font-bold">Peluncuran & Iterasi</h3>
+                    <p class="mt-4 text-sm leading-relaxed text-zinc-400">Melakukan pengujian menyeluruh, merilis produk ke
+                        server produksi, dan siap melakukan optimasi berkala.</p>
+                </article>
+
             </div>
         </section>
+
 
         <section id="about" class="section-wrap">
             <div class="grid items-center gap-12 lg:grid-cols-12 lg:gap-16">
                 <div class="lg:col-span-5 reveal">
                     <div class="surface-card relative overflow-hidden rounded-2xl p-2">
                         <img class="h-110 w-full rounded-xl object-cover sm:h-130"
-                            src="https://images.unsplash.com/photo-1754473720977-f39053f22586?crop=entropy&cs=srgb&fm=jpg&q=85&w=900"
-                            alt="Irayshi" />
+                            src="{{ asset('images/IMG_20251208_060909_615.jpg') }}" alt="Irayshi" />
                         <div
                             class="surface-card absolute bottom-6 left-4 flex items-center gap-2 rounded-xl bg-[#141418]/90 px-5 py-3 backdrop-blur-xl">
                             <i data-lucide="map-pin" class="h-4 w-4 text-crimson"></i>

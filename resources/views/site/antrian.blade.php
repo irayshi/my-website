@@ -8,7 +8,7 @@
         </a>
 
         <section class="max-w-3xl">
-            <p class="overline mb-4">Live Service Board</p>
+            <p class="tagline mb-4">Live Service Board</p>
             <h1 class="font-display text-3xl font-extrabold leading-[1.05] tracking-tight sm:text-5xl">
                 Antrian Layanan
             </h1>
