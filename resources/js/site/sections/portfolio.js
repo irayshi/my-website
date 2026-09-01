@@ -10,10 +10,10 @@ function portfolioCard(item) {
     <article class="reveal ${item.wide ? "lg:col-span-4" : "lg:col-span-2"}">
       <a class="surface-card group relative block h-full overflow-hidden rounded-2xl text-left" href="#contact">
         <img class="absolute inset-0 h-full w-full object-cover transition-transform duration-700 group-hover:scale-110" src="${item.image}" alt="${item.title}" />
-        <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent"></div>
+        <div class="absolute inset-0 bg-linear-to-t from-black/90 via-black/30 to-transparent"></div>
         <div class="absolute inset-0 flex flex-col justify-end p-6">
           <div class="mb-2 flex items-center gap-2">
-            <span class="overline">${item.category}</span>
+            <span class="tagline">${item.category}</span>
             <span class="text-xs text-white/40">· ${item.year}</span>
           </div>
           <h3 class="font-display flex items-center gap-2 text-xl font-bold">

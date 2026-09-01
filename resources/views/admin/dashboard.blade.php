@@ -1,28 +1,34 @@
 @extends('layouts.admin')
 
+@section('title', 'Dashboard')
+
 @section('main')
-    <main class="relative z-10 mx-auto max-w-300 px-5 py-8 sm:px-8">
-        <header class="mb-8 flex flex-col gap-5 sm:flex-row sm:items-center sm:justify-between">
-            <div>
-                <h1 class="font-display text-2xl font-extrabold">Dashboard Admin</h1>
-                <p class="mt-1 text-sm text-zinc-400">Masuk sebagai <span id="admin-email">admin@irayshi.com</span></p>
-            </div>
+    <div class="mb-6">
+        <h1 class="font-display text-2xl font-extrabold">Ringkasan</h1>
+        <p class="mt-1 text-sm text-zinc-400">Data aktual dari database aplikasi.</p>
+    </div>
 
-            <div class="flex items-center gap-3">
-                <a class="admin-outline-button" href="{{ route('home') }}">
-                    <i data-lucide="arrow-left" class="h-4 w-4"></i>
-                    Situs
-                </a>
-                <button id="logout-button" class="admin-outline-button hover:border-red-400 hover:text-red-400"
-                    type="button">
-                    <i data-lucide="log-out" class="h-4 w-4"></i>
-                    Keluar
-                </button>
-            </div>
-        </header>
+    <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+        @foreach ([
+            ['Proyek', $counts['projects'], 'admin.projects.index', 'briefcase-business'],
+            ['Jasa', $counts['services'], 'admin.services.index', 'wrench'],
+            ['Klien', $counts['clients'], 'admin.clients.index', 'users'],
+            ['Ulasan', $counts['reviews'], 'admin.reviews.index', 'star'],
+        ] as [$label, $value, $routeName, $icon])
+            <a href="{{ route($routeName) }}" class="surface-card rounded-2xl p-6 transition hover:border-white/25">
+                <div class="flex items-center justify-between text-sm text-zinc-400">
+                    <span>{{ $label }}</span><i data-lucide="{{ $icon }}" class="h-5 w-5 text-crimson"></i>
+                </div>
+                <div class="mt-3 text-3xl font-extrabold">{{ number_format($value) }}</div>
+            </a>
+        @endforeach
+    </div>
 
-        <nav id="admin-tabs" class="mb-8 flex gap-2 overflow-x-auto pb-1" aria-label="Navigasi dashboard"></nav>
-
-        <section id="admin-content" aria-live="polite"></section>
-    </main>
+    <section class="surface-card mt-6 overflow-hidden rounded-2xl">
+        <div class="flex items-center justify-between border-b border-white/10 p-6">
+            <div><h2 class="font-semibold">Proyek terbaru</h2><p class="mt-1 text-sm text-zinc-400">Lima data terakhir.</p></div>
+            <a href="{{ route('admin.projects.index') }}" class="text-sm text-crimson hover:underline">Lihat semua</a>
+        </div>
+        @include('admin.partials.projects-table', ['projects' => $latestProjects])
+    </section>
 @endsection

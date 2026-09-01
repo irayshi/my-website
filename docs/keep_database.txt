@@ -7,27 +7,23 @@ projects
 - created_at
 - employee_id
 - review_id
+- client_id
 - internal
 - status
 - show
 - created_at
+- started_at
 - finished_at
-
-queues
-- id
-- project_id
-- client_id
-- created_at
 - canceled_at
 
 reviews
 - id
+- token
 - client_id
 - project_id
 - rating
 - message
-- created_at
-- updated_at
+- submitted_at
 
 services
 - id
@@ -43,17 +39,16 @@ images
 - image_path
 - sort_order
 
-employee
+employees
 - id
 - name
-- slug
+- username
 - password
 - created_at
 
-users
+clients
 - id
 - name
 - created_at
 - deleted_at
-- avatar
 

@@ -90,7 +90,7 @@
 
             <div
                 class="mt-16 flex flex-col items-center justify-between gap-6 border-t border-white/10 pt-10 sm:flex-row">
-                <div class="font-display text-lg font-extrabold">irayshi<span class="text-crimson">.</span>com</div>
+                <div class="font-display flex items-center gap-1 text-xl font-extrabold tracking-tight">irayshi<span class="text-crimson">.</span>com</div>
                 <div class="flex items-center gap-6 text-sm text-zinc-400">
                     <a class="flex items-center gap-1 transition hover:text-white" href="https://github.com/irayshi"
                         target="_blank" rel="noreferrer">GitHub <i data-lucide="arrow-up-right"

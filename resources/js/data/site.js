@@ -13,24 +13,6 @@ export const marqueeItems = [
   "DARI INDONESIA",
 ];
 
-export const workflow = [
-  {
-    no: "01",
-    title: "Diskusi & Perencanaan",
-    body: "Kita mulai dengan memahami kebutuhan, tujuan, dan lingkup proyekmu. Saya susun rencana serta estimasi yang jelas sebelum mulai.",
-  },
-  {
-    no: "02",
-    title: "Desain & Pengembangan",
-    body: "Saya rancang antarmuka lalu membangun produk dengan kode yang bersih, sambil memberi update progres secara berkala.",
-  },
-  {
-    no: "03",
-    title: "Pengujian & Peluncuran",
-    body: "Setelah diuji menyeluruh, produk diluncurkan. Saya bantu proses handover dan siap mendukung revisi setelahnya.",
-  },
-];
-
 export const skills = ["React", "FastAPI", "MongoDB", "Node.js", "TypeScript", "Tailwind CSS", "UI/UX Design", "Figma"];
 
 export const aboutStats = [

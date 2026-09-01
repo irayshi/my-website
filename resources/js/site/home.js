@@ -4,7 +4,6 @@
  */
 
 import { renderMarquee } from "./sections/marquee.js";
-import { renderWorkflow } from "./sections/workflow.js";
 import { renderSkills } from "./sections/skills.js";
 import { renderServices } from "./sections/services.js";
 import { renderProducts } from "./sections/products.js";
@@ -21,7 +20,6 @@ import {
 
 function init() {
   renderMarquee();
-  renderWorkflow();
   renderSkills();
   renderServices();
   renderProducts();
