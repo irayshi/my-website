@@ -12,41 +12,33 @@ class DashboardController extends Controller
 {
     public function index(): View
     {
-        return view('admin.dashboard', [
-            'counts' => [
-                'projects' => Project::count(),
-                'services' => Service::count(),
-                'clients' => Client::count(),
-                'reviews' => Review::count(),
-            ],
-            'latestProjects' => Project::with('client')->latest('created_at')->limit(5)->get(),
-        ]);
+        return view('admin.dashboard');
     }
 
     public function projects(): View
     {
-        return view('admin.projects.index', [
+        return view('admin.projects', [
             'projects' => Project::with('client')->latest('created_at')->paginate(15),
         ]);
     }
 
     public function services(): View
     {
-        return view('admin.services.index', [
+        return view('admin.services', [
             'services' => Service::latest()->paginate(15),
         ]);
     }
 
     public function clients(): View
     {
-        return view('admin.clients.index', [
+        return view('admin.clients', [
             'clients' => Client::withCount(['projects', 'reviews'])->latest()->paginate(15),
         ]);
     }
 
     public function reviews(): View
     {
-        return view('admin.reviews.index', [
+        return view('admin.reviews', [
             'reviews' => Review::with(['client', 'project'])->latest('submitted_at')->paginate(15),
         ]);
     }

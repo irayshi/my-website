@@ -30,6 +30,11 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+html.project-modal-open,
+body.project-modal-open {
+  overflow: hidden;
+}
+
 /* ==========================================================
    Reusable utilities
    ========================================================== */
@@ -235,6 +240,87 @@ body {
     border-color: rgba(255, 255, 255, 0.36);
     color: #fff;
     background: rgba(255, 255, 255, 0.04);
+  }
+
+  .project-modal::backdrop {
+    background: rgba(0, 0, 0, 0.72);
+    backdrop-filter: blur(8px);
+  }
+
+  .project-modal {
+    max-height: calc(100dvh - 2rem);
+    overflow: hidden;
+  }
+
+  .project-modal[open] {
+    animation: project-modal-in 180ms ease-out;
+  }
+
+  .project-modal-form {
+    display: flex;
+    max-height: calc(100dvh - 2rem);
+    min-height: 0;
+    flex-direction: column;
+    overflow: hidden;
+  }
+
+  .project-modal-content {
+    min-height: 0;
+    flex: 1 1 auto;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+  }
+
+  .project-label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-size: 0.8125rem;
+    font-weight: 600;
+    color: #d4d4d8;
+  }
+
+  .project-input {
+    width: 100%;
+    border-radius: 0.75rem;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    background: rgba(255, 255, 255, 0.04);
+    padding: 0.75rem 0.875rem;
+    font-size: 0.875rem;
+    color: #fff;
+    outline: none;
+    transition: border-color 180ms ease, background 180ms ease, box-shadow 180ms ease;
+  }
+
+  .project-input::placeholder {
+    color: #52525b;
+  }
+
+  .project-input:focus {
+    border-color: rgba(220, 20, 60, 0.8);
+    background: rgba(255, 255, 255, 0.06);
+    box-shadow: 0 0 0 3px rgba(220, 20, 60, 0.12);
+  }
+
+  .project-dropzone {
+    display: flex;
+    cursor: pointer;
+    align-items: center;
+    gap: 0.875rem;
+    border-radius: 0.875rem;
+    border: 1px dashed rgba(255, 255, 255, 0.18);
+    padding: 1rem;
+    transition: border-color 180ms ease, background 180ms ease;
+  }
+
+  .project-dropzone:hover,
+  .project-dropzone.is-dragging {
+    border-color: rgba(220, 20, 60, 0.75);
+    background: rgba(220, 20, 60, 0.05);
+  }
+
+  @keyframes project-modal-in {
+    from { opacity: 0; transform: translateY(10px) scale(0.985); }
+    to { opacity: 1; transform: translateY(0) scale(1); }
   }
 
   /* ----- Queue ----- */

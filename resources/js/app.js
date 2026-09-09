@@ -8,3 +8,4 @@ import "./../css/app.css";
 
 import "./site/home.js";
 import "./site/queue.js";
+import "./admin/projects.js";
