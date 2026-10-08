@@ -15,6 +15,11 @@
             Tambah Proyek
         </button>
     </div>
+    @if (session('success'))
+        <div class="mb-5 rounded-xl border border-emerald-500/20 bg-emerald-500/10 px-4 py-3 text-sm text-emerald-300">
+            {{ session('success') }}
+        </div>
+    @endif
     <section class="surface-card overflow-hidden rounded-2xl">
         @if ($projects->isEmpty())
             <p class="p-8 text-center text-sm text-zinc-400">Belum ada data proyek.</p>
@@ -54,7 +59,8 @@
         class="project-modal m-auto w-[calc(100%-2rem)] max-w-3xl rounded-3xl border border-white/10 bg-[#151519] p-0 text-white shadow-2xl"
         aria-labelledby="project-modal-title"
     >
-        <form id="project-form" class="project-modal-form" enctype="multipart/form-data">
+        <form action="{{ route('admin.projects.store') }}" method="POST" id="project-form" class="project-modal-form" enctype="multipart/form-data" data-open-on-error="{{ $errors->any() ? 'true' : 'false' }}">
+            @csrf
             <header class="flex items-start justify-between gap-4 border-b border-white/10 px-5 py-5 sm:px-7">
                 <div>
                     <p class="text-xs font-semibold uppercase tracking-[0.2em] text-crimson">Proyek baru</p>
@@ -67,23 +73,31 @@
             </header>
 
             <div class="project-modal-content px-5 py-6 sm:px-7">
+                @if ($errors->any())
+                    <div class="mb-5 rounded-xl border border-red-500/20 bg-red-500/10 px-4 py-3 text-sm text-red-300">
+                        <p class="font-semibold">Proyek belum dapat disimpan:</p>
+                        <ul class="mt-1 list-disc pl-5">
+                            @foreach ($errors->all() as $error)<li>{{ $error }}</li>@endforeach
+                        </ul>
+                    </div>
+                @endif
                 <div class="grid gap-5 sm:grid-cols-2">
                     <div class="sm:col-span-2">
                         <label class="project-label" for="project-name">Nama proyek</label>
-                        <input class="project-input" id="project-name" name="name" type="text" placeholder="Contoh: Website Company Profile" required />
+                        <input class="project-input" id="project-name" name="name" type="text" value="{{ old('name') }}" placeholder="Contoh: Website Company Profile" required />
                     </div>
 
                     <fieldset class="sm:col-span-2">
                         <legend class="project-label">Jenis proyek</legend>
                         <div class="grid grid-cols-2 gap-2 rounded-xl bg-white/5 p-1" data-project-type>
                             <label class="project-type-option">
-                                <input class="peer sr-only" type="radio" name="project_type" value="external" checked />
+                                <input class="peer sr-only" type="radio" name="project_type" value="external" @checked(old('project_type', 'external') === 'external') />
                                 <span class="flex items-center justify-center gap-2 rounded-lg px-4 py-2.5 text-sm font-semibold text-zinc-400 transition peer-checked:bg-white/10 peer-checked:text-white">
                                     <i data-lucide="users" class="h-4 w-4"></i> External
                                 </span>
                             </label>
                             <label class="project-type-option">
-                                <input class="peer sr-only" type="radio" name="project_type" value="internal" />
+                                <input class="peer sr-only" type="radio" name="project_type" value="internal" @checked(old('project_type') === 'internal') />
                                 <span class="flex items-center justify-center gap-2 rounded-lg px-4 py-2.5 text-sm font-semibold text-zinc-400 transition peer-checked:bg-white/10 peer-checked:text-white">
                                     <i data-lucide="building-2" class="h-4 w-4"></i> Internal
                                 </span>
@@ -93,39 +107,30 @@
 
                     <div class="sm:col-span-2" data-client-field>
                         <label class="project-label" for="project-client">Nama klien</label>
-                        <input class="project-input" id="project-client" name="client_name" type="text" placeholder="Contoh: PT Nusantara Digital" required />
+                        <input class="project-input" id="project-client" name="client_name" type="text" value="{{ old('client_name') }}" placeholder="Contoh: PT Nusantara Digital" required />
                     </div>
 
                     <div class="sm:col-span-2">
                         <label class="project-label" for="project-description">Deskripsi</label>
-                        <textarea class="project-input min-h-28 resize-y" id="project-description" name="description" placeholder="Ceritakan tujuan, solusi, dan hasil proyek..." required></textarea>
+                        <textarea class="project-input min-h-28 resize-y" id="project-description" name="description" placeholder="Ceritakan tujuan, solusi, dan hasil proyek..." required>{{ old('description') }}</textarea>
                     </div>
 
                     <div class="sm:col-span-2">
                         <label class="project-label" for="project-tech-stack">Tech stack</label>
-                        <input class="project-input" id="project-tech-stack" name="tech_stack" type="text" placeholder="Laravel, Tailwind CSS, Alpine.js" required />
+                        <input class="project-input" id="project-tech-stack" name="tech_stack" type="text" value="{{ old('tech_stack') }}" placeholder="Laravel, Tailwind CSS, Alpine.js" required />
                         <p class="mt-1.5 text-xs text-zinc-500">Pisahkan setiap teknologi dengan koma.</p>
                     </div>
 
-                    <div>
-                        <label class="project-label" for="project-start-date">Tanggal mulai</label>
-                        <input class="project-input scheme-dark" id="project-start-date" name="started_at" type="date" />
-                    </div>
-                    <div>
-                        <label class="project-label" for="project-end-date">Tanggal selesai</label>
-                        <input class="project-input scheme-dark" id="project-end-date" name="finished_at" type="date" />
-                    </div>
-
                     <div class="sm:col-span-2">
-                        <label class="project-label" for="project-demo-link">Link demo</label>
+                        <label class="project-label" for="project-demo-link">Link demo <span class="font-normal text-zinc-500">(opsional)</span></label>
                         <div class="relative">
                             <i data-lucide="link-2" class="pointer-events-none absolute left-3.5 top-1/2 h-4 w-4 -translate-y-1/2 text-zinc-500"></i>
-                            <input class="project-input pl-10" id="project-demo-link" name="link_demo" type="url" placeholder="https://contoh-proyek.com" />
+                            <input class="project-input pl-10" id="project-demo-link" name="link_demo" type="url" value="{{ old('link_demo') }}" placeholder="https://contoh-proyek.com" />
                         </div>
                     </div>
 
                     <div class="sm:col-span-2">
-                        <span class="project-label">Gambar proyek</span>
+                        <span class="project-label">Gambar proyek <span class="font-normal text-zinc-500">(opsional)</span></span>
                         <label class="project-dropzone" for="project-images" data-image-dropzone>
                             <input class="sr-only" id="project-images" name="images[]" type="file" accept="image/*" multiple />
                             <span class="flex h-11 w-11 items-center justify-center rounded-xl bg-crimson/10 text-crimson">

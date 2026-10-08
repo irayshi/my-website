@@ -24,20 +24,30 @@
           <a href="{{ route('admin.dashboard') }}" class="font-display text-2xl font-extrabold">Admin Irayshi</a>
           <p class="mt-1 text-sm text-zinc-400">Kelola data website langsung dari database.</p>
         </div>
-        <a class="admin-outline-button" href="{{ route('home') }}">
-          <i data-lucide="arrow-left" class="h-4 w-4"></i> Situs
-        </a>
+        <div class="flex items-center gap-2">
+          <span class="hidden text-sm text-zinc-400 md:inline">{{ auth()->user()->name }}</span>
+          <a class="admin-outline-button" href="{{ route('home') }}">
+            <i data-lucide="arrow-left" class="h-4 w-4"></i> Situs
+          </a>
+          <form action="{{ route('logout') }}" method="POST">
+            @csrf
+            <button class="admin-outline-button" type="submit">
+              <i data-lucide="log-out" class="h-4 w-4"></i> Keluar
+            </button>
+          </form>
+        </div>
       </header>
 
       <nav class="mb-8 flex gap-2 overflow-x-auto pb-1" aria-label="Navigasi admin">
         @foreach ([
-          ['admin.dashboard', 'Dashboard', 'layout-dashboard'],
-          ['admin.projects.index', 'Proyek', 'briefcase-business'],
-          ['admin.services.index', 'Jasa', 'wrench'],
-          ['admin.clients.index', 'Klien', 'users'],
-          ['admin.reviews.index', 'Ulasan', 'star'],
-        ] as [$routeName, $label, $icon])
-          <a href="{{ route($routeName) }}" class="admin-tab {{ request()->routeIs($routeName) ? 'active' : '' }}">
+          ['admin.dashboard', 'admin.dashboard', 'Dashboard', 'layout-dashboard'],
+          ['admin.projects.index', 'admin.projects.*', 'Proyek', 'briefcase-business'],
+          ['admin.queue.index', 'admin.queue.*', 'Antrian', 'list-ordered'],
+          ['admin.services.index', 'admin.services.*', 'Jasa', 'wrench'],
+          ['admin.clients.index', 'admin.clients.*', 'Klien', 'users'],
+          ['admin.reviews.index', 'admin.reviews.*', 'Ulasan', 'star'],
+        ] as [$routeName, $activePattern, $label, $icon])
+          <a href="{{ route($routeName) }}" class="admin-tab {{ request()->routeIs($activePattern) ? 'active' : '' }}">
             <i data-lucide="{{ $icon }}" class="h-4 w-4"></i>{{ $label }}
           </a>
         @endforeach

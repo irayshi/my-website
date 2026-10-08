@@ -18,7 +18,7 @@ return new class extends Migration {
             $table->string('name');
             $table->text('description');
             $table->string('tech_stack');
-            $table->string('link_demo');
+            $table->string('link_demo')->nullable();
             $table->boolean('is_internal');
             $table->boolean('is_visible');
             $table->timestamp('created_at')->useCurrent();

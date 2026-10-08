@@ -127,9 +127,14 @@ if (modal) {
     renderImages();
   });
 
-  form.addEventListener("submit", (event) => {
-    event.preventDefault();
+  form.addEventListener("submit", () => {
+    form.querySelector('button[type="submit"]')?.setAttribute("disabled", "disabled");
   });
 
   updateClientField();
+
+  if (form.dataset.openOnError === "true") {
+    modal.showModal();
+    setPageScrollLocked(true);
+  }
 }
