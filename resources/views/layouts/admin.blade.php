@@ -3,60 +3,102 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content="Panel admin Irayshi untuk statistik, antrian, produk, jasa, dan portofolio." />
-    <title>@yield('title', 'Dashboard') - Admin Irayshi</title>
-
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap"
-      rel="stylesheet"
-    />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>@yield('title', 'Dashboard') - Admin Panel</title>
     @vite(['resources/css/app.css', 'resources/js/app.js'])
   </head>
 
-  <body class="min-h-screen bg-[#0d0d0f] text-white antialiased">
-    <div class="grain"></div>
+  <body class="min-h-screen bg-zinc-950 text-zinc-100 antialiased">
+    @php
+      $menus = [
+        ['admin.projects.index', 'admin.projects.*', 'Proyek', 'folder-kanban'],
+      ];
+    @endphp
 
-    <div class="relative z-10 mx-auto max-w-350 px-5 py-8 sm:px-8">
-      <header class="mb-8 flex flex-col gap-5 sm:flex-row sm:items-center sm:justify-between">
-        <div>
-          <a href="{{ route('admin.dashboard') }}" class="font-display text-2xl font-extrabold">Admin Irayshi</a>
-          <p class="mt-1 text-sm text-zinc-400">Kelola data website langsung dari database.</p>
-        </div>
-        <div class="flex items-center gap-2">
-          <span class="hidden text-sm text-zinc-400 md:inline">{{ auth()->user()->name }}</span>
-          <a class="admin-outline-button" href="{{ route('home') }}">
-            <i data-lucide="arrow-left" class="h-4 w-4"></i> Situs
+    <div class="flex min-h-screen">
+      <aside class="fixed inset-y-0 left-0 z-30 hidden w-64 border-r border-white/10 bg-zinc-950/95 lg:flex lg:flex-col">
+        <div class="flex h-18 items-center border-b border-white/10 px-6">
+          <a href="{{ route('admin.projects.index') }}" class="flex items-center gap-3">
+            <span class="flex h-10 w-10 items-center justify-center rounded-lg bg-crimson text-sm font-black text-white">IR</span>
+            <span>
+              <span class="block text-base font-bold leading-5">Admin Panel</span>
+              <span class="block text-xs text-zinc-500">Irayshi Dashboard</span>
+            </span>
           </a>
-          <form action="{{ route('logout') }}" method="POST">
+        </div>
+
+        <nav class="flex-1 space-y-1 px-4 py-5" aria-label="Navigasi admin">
+          @foreach ($menus as [$routeName, $activePattern, $label, $icon])
+            <a
+              href="{{ route($routeName) }}"
+              class="flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium transition {{ request()->routeIs($activePattern) ? 'bg-crimson text-white shadow-lg shadow-crimson/20' : 'text-zinc-400 hover:bg-white/5 hover:text-white' }}"
+            >
+              <i data-lucide="{{ $icon }}" class="h-4 w-4"></i>
+              <span>{{ $label }}</span>
+            </a>
+          @endforeach
+        </nav>
+
+        <div class="border-t border-white/10 p-4">
+          <a href="{{ route('home') }}" class="flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium text-zinc-400 transition hover:bg-white/5 hover:text-white">
+            <i data-lucide="external-link" class="h-4 w-4"></i>
+            <span>Lihat Situs</span>
+          </a>
+          <form action="{{ route('logout') }}" method="POST" class="mt-1">
             @csrf
-            <button class="admin-outline-button" type="submit">
-              <i data-lucide="log-out" class="h-4 w-4"></i> Keluar
+            <button type="submit" class="flex w-full items-center gap-3 rounded-lg px-3 py-2.5 text-left text-sm font-medium text-zinc-400 transition hover:bg-white/5 hover:text-white">
+              <i data-lucide="log-out" class="h-4 w-4"></i>
+              <span>Keluar</span>
             </button>
           </form>
         </div>
-      </header>
+      </aside>
 
-      <nav class="mb-8 flex gap-2 overflow-x-auto pb-1" aria-label="Navigasi admin">
-        @foreach ([
-          ['admin.dashboard', 'admin.dashboard', 'Dashboard', 'layout-dashboard'],
-          ['admin.projects.index', 'admin.projects.*', 'Proyek', 'briefcase-business'],
-          ['admin.queue.index', 'admin.queue.*', 'Antrian', 'list-ordered'],
-          ['admin.services.index', 'admin.services.*', 'Jasa', 'wrench'],
-          ['admin.clients.index', 'admin.clients.*', 'Klien', 'users'],
-          ['admin.reviews.index', 'admin.reviews.*', 'Ulasan', 'star'],
-        ] as [$routeName, $activePattern, $label, $icon])
-          <a href="{{ route($routeName) }}" class="admin-tab {{ request()->routeIs($activePattern) ? 'active' : '' }}">
-            <i data-lucide="{{ $icon }}" class="h-4 w-4"></i>{{ $label }}
-          </a>
-        @endforeach
-      </nav>
+      <div class="flex min-w-0 flex-1 flex-col lg:pl-64">
+        <header class="sticky top-0 z-20 border-b border-white/10 bg-zinc-950/85 backdrop-blur">
+          <div class="flex min-h-18 flex-col gap-4 px-4 py-4 sm:px-6 lg:flex-row lg:items-center lg:justify-between lg:px-8">
+            <div>
+              <p class="text-xs font-semibold uppercase tracking-[0.22em] text-crimson">Admin</p>
+              <h1 class="mt-1 text-xl font-bold text-white">@yield('title', 'Dashboard')</h1>
+            </div>
 
-      <main>@yield('main')</main>
+            <div class="flex items-center justify-between gap-3">
+              <nav class="flex gap-2 overflow-x-auto lg:hidden" aria-label="Navigasi admin mobile">
+                @foreach ($menus as [$routeName, $activePattern, $label, $icon])
+                  <a
+                    href="{{ route($routeName) }}"
+                    class="inline-flex shrink-0 items-center gap-2 rounded-lg px-3 py-2 text-sm font-medium transition {{ request()->routeIs($activePattern) ? 'bg-crimson text-white' : 'bg-white/5 text-zinc-300 hover:bg-white/10 hover:text-white' }}"
+                  >
+                    <i data-lucide="{{ $icon }}" class="h-4 w-4"></i>
+                    {{ $label }}
+                  </a>
+                @endforeach
+              </nav>
+
+              <div class="hidden items-center gap-3 sm:flex">
+                <div class="text-right">
+                  <p class="text-sm font-semibold text-white">{{ auth()->user()->name }}</p>
+                  <p class="text-xs text-zinc-500">Administrator</p>
+                </div>
+                <div class="flex h-10 w-10 items-center justify-center rounded-lg border border-white/10 bg-white/5 text-sm font-bold text-white">
+                  {{ strtoupper(substr(auth()->user()->name, 0, 1)) }}
+                </div>
+              </div>
+            </div>
+          </div>
+        </header>
+
+        <main class="flex-1 px-4 py-6 sm:px-6 lg:px-8">
+          <div class="mx-auto w-full max-w-7xl">
+            @yield('main')
+          </div>
+        </main>
+      </div>
     </div>
 
     <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
-    <script>document.addEventListener('DOMContentLoaded', () => window.lucide?.createIcons());</script>
+    <script>
+      document.addEventListener('DOMContentLoaded', () => window.lucide?.createIcons());
+    </script>
   </body>
 </html>

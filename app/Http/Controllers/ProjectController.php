@@ -18,9 +18,13 @@ class ProjectController extends Controller
 {
     public function index(): View
     {
-        return view('admin.projects', [
-            'projects' => Project::with('client')->latest('created_at')->paginate(15),
+        return view('admin.projects.index', [
         ]);
+    }
+
+    public function create()
+    {
+        //
     }
 
     public function store(Request $request)
@@ -72,5 +76,25 @@ class ProjectController extends Controller
         }
 
         return to_route('admin.projects.index')->with('success', 'Proyek berhasil ditambahkan.');
+    }
+
+    public function show(string $id)
+    {
+        //
+    }
+
+    public function edit(string $id)
+    {
+        //
+    }
+
+    public function update(Request $request, string $id)
+    {
+        //
+    }
+
+    public function destroy(string $id)
+    {
+        //
     }
 }

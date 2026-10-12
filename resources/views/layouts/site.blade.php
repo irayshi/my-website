@@ -27,21 +27,31 @@
                 </a>
 
                 <nav class="hidden items-center gap-9 lg:flex" aria-label="Navigasi utama">
-                    <a class="nav-link" href="{{ route('home') }}">Home</a>
-                    <a class="nav-link" href="#services">Services</a>
-                    <a class="nav-link" href="#products">Products</a>
-                    <a class="nav-link" href="#portfolio">Portfolio</a>
-                    <a class="nav-link" href="#about">About</a>
-                    <a class="nav-link" href="{{ route('antrian') }}">Antrian</a>
+                    <a class="nav-link {{ request()->routeIs('home') ? 'active' : '' }}"
+                        href="{{ route('home') }}">@lang('nav.home')</a>
+                    <a class="nav-link {{ request()->routeIs('projects') ? 'active' : '' }}"
+                        href="{{ route('projects') }}">@lang('nav.projects')</a>
+                    <a class="nav-link {{ request()->routeIs('queue') ? 'active' : '' }}"
+                        href="{{ route('queue') }}">@lang('nav.queue')</a>
+                    <a class="nav-link {{ request()->routeIs('about') ? 'active' : '' }}"
+                        href="{{ route('about') }}">@lang('nav.aboutme')</a>
                 </nav>
 
                 <div class="flex items-center gap-3">
-                    <a class="hidden h-9 w-9 items-center justify-center rounded-full border border-white/10 text-zinc-400 transition hover:border-white/30 hover:text-white sm:flex"
-                        href="{{ route('admin.dashboard') }}" aria-label="Admin">
-                        <i data-lucide="lock" class="h-4 w-4"></i>
-                    </a>
+                    <div class="flex items-center gap-2 text-sm">
+                        <a href="{{ route('locale', 'id') }}"
+                            class="{{ app()->getLocale() === 'id' ? 'text-white' : 'text-zinc-400' }}">
+                            ID
+                        </a>
+                        <span class="text-zinc-600">/</span>
+                        <a href="{{ route('locale', 'en') }}"
+                            class="{{ app()->getLocale() === 'en' ? 'text-white' : 'text-zinc-400' }}">
+                            EN
+                        </a>
+                    </div>
+
                     <a class="crimson-pill hidden px-5 py-2.5 text-sm font-semibold sm:inline-flex" href="#contact">
-                        Hubungi Saya
+                        @lang('nav.contactme')
                     </a>
                     <button id="menu-toggle" class="text-white lg:hidden" type="button" aria-label="Buka menu">
                         <i data-lucide="menu" class="h-6 w-6"></i>
@@ -51,16 +61,20 @@
 
             <nav id="mobile-menu"
                 class="mx-auto mt-4 hidden max-w-350 rounded-2xl border border-white/10 bg-[#141418]/95 p-4 backdrop-blur lg:hidden">
-                <a class="mobile-link" href="{{ route('home') }}">Home</a>
-                <a class="mobile-link" href="#services">Services</a>
-                <a class="mobile-link" href="#products">Products</a>
-                <a class="mobile-link" href="#portfolio">Portfolio</a>
-                <a class="mobile-link" href="#about">About</a>
-                <a class="mobile-link" href="{{ route('antrian') }}">Antrian</a>
+                <a class="mobile-link {{ request()->routeIs('home') ? 'active' : '' }}"
+                    href="{{ route('home') }}">Home</a>
+                <a class="mobile-link {{ request()->routeIs('projects') ? 'active' : '' }}"
+                    href="{{ route('projects') }}">Projects</a>
+                <a class="mobile-link {{ request()->routeIs('queue') ? 'active' : '' }}"
+                    href="{{ route('queue') }}">Queue</a>
+                <a class="mobile-link {{ request()->routeIs('about') ? 'active' : '' }}"
+                    href="{{ route('about') }}">About Me</a>
             </nav>
         </header>
 
-        @yield('main')
+        <main>
+            @yield('main')
+        </main>
 
         <footer id="contact" class="relative z-10 mx-auto max-w-350 px-5 pb-10 pt-28 sm:px-8">
             <div class="surface-card relative overflow-hidden rounded-3xl p-10 text-center sm:p-16 reveal">
@@ -77,11 +91,11 @@
                         Saya biasanya membalas dalam kurang dari 24 jam.</p>
                     <div class="mt-10 flex flex-wrap items-center justify-center gap-4">
                         <a class="crimson-pill inline-flex items-center gap-2 px-7 py-3.5 font-semibold"
-                            href="https://wa.me/6280000000000" target="_blank" rel="noreferrer">
+                            href="{{ $whatsapp }}" target="_blank" rel="noreferrer">
                             <i data-lucide="message-circle" class="h-5 w-5"></i> Chat via WhatsApp
                         </a>
                         <a class="inline-flex items-center gap-2 rounded-full border border-white/15 px-7 py-3.5 font-semibold transition-all hover:border-white/40 hover:bg-white/5"
-                            href="mailto:halo@irayshi.com">
+                            href="{{ $email }}" target="blank">
                             <i data-lucide="mail" class="h-5 w-5"></i> Kirim Email
                         </a>
                     </div>
@@ -90,15 +104,22 @@
 
             <div
                 class="mt-16 flex flex-col items-center justify-between gap-6 border-t border-white/10 pt-10 sm:flex-row">
-                <div class="font-display flex items-center gap-1 text-xl font-extrabold tracking-tight">irayshi<span class="text-crimson">.</span>com</div>
+                @if (!empty($logo))
+                    <img class="h-9 w-auto" src="{{ $logo }}" alt="irayshi.com">
+                @else
+                    <div class="font-display flex items-center gap-1 text-xl font-extrabold tracking-tight">irayshi<span
+                            class="text-crimson">.</span>com</div>
+                @endif
                 <div class="flex items-center gap-6 text-sm text-zinc-400">
-                    <a class="flex items-center gap-1 transition hover:text-white" href="https://github.com/irayshi"
+                    <a class="flex items-center gap-1 transition hover:text-white" href="{{ $github }}"
                         target="_blank" rel="noreferrer">GitHub <i data-lucide="arrow-up-right"
                             class="h-3.5 w-3.5"></i></a>
-                    <a class="flex items-center gap-1 transition hover:text-white"
-                        href="https://instagram.com/irayshi" target="_blank" rel="noreferrer">Instagram <i
-                            data-lucide="arrow-up-right" class="h-3.5 w-3.5"></i></a>
-                    <a class="transition hover:text-white" href="mailto:halo@irayshi.com">halo@irayshi.com</a>
+                    <a class="flex items-center gap-1 transition hover:text-white" href="{{ $instagram }}"
+                        target="_blank" rel="noreferrer">Instagram <i data-lucide="arrow-up-right"
+                            class="h-3.5 w-3.5"></i></a>
+                    <a class="flex items-center gap-1 transition hover:text-white" href="{{ $linkedin }}"
+                        target="_blank" rel="noreferrer">LinkedIn <i data-lucide="arrow-up-right"
+                            class="h-3.5 w-3.5"></i></a>
                 </div>
                 <div class="text-xs text-zinc-600">&copy; 2026 Irayshi. Semua hak dilindungi.</div>
             </div>

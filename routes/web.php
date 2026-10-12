@@ -8,10 +8,20 @@ use App\Http\Controllers\ReviewController;
 use App\Http\Controllers\ServiceController;
 use App\Http\Controllers\QueueController;
 use App\Http\Controllers\QueueBoardController;
+use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Route;
 
-Route::view('/', 'site.home')->name('home');
-Route::get('/antrian', QueueBoardController::class)->name('antrian');
+Route::get('/locale/{locale}', function ($locale) {
+    session(['locale' => $locale]);
+    return back();
+})->name('locale');
+
+Route::view('/my-cv', 'site.my_cv');
+
+Route::get('/', [HomeController::class, 'home'])->name('home');
+Route::get('/projects', QueueBoardController::class)->name('projects');
+Route::get('/queue', QueueBoardController::class)->name('queue');
+Route::get('/about', QueueBoardController::class)->name('about');
 
 Route::middleware('guest')->group(function () {
     Route::get('/login', [AuthenticatedSessionController::class, 'create'])->name('login');
@@ -22,13 +32,9 @@ Route::post('/logout', [AuthenticatedSessionController::class, 'destroy'])
     ->middleware('auth')
     ->name('logout');
 
-Route::prefix('admin')->name('admin.')->middleware('auth')->group(function () {
-    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
-    Route::resource('projects', ProjectController::class)->only(['index', 'store']);
-    Route::get('/queue', [QueueController::class, 'index'])->name('queue.index');
-    Route::patch('/queue/{project}/start', [QueueController::class, 'start'])->name('queue.start');
-    Route::patch('/queue/{project}/finish', [QueueController::class, 'finish'])->name('queue.finish');
-    Route::resource('services', ServiceController::class)->only('index');
-    Route::resource('clients', ClientController::class)->only('index');
-    Route::resource('reviews', ReviewController::class)->only('index');
-});
+Route::prefix('admin')
+    ->name('admin.')
+    ->middleware('auth')
+    ->group(function () {
+        Route::resource('projects', ProjectController::class);
+    });
